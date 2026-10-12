@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071126">
+    <title>{{ assistant_name }} | AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+</head>
+<body>
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <a class="brand" href="/">
+                <div class="brand-icon">✦</div>
+                <div>
+                    <h2>REX</h2>
+                    <p>AI Assistant</p>
+                </div>
+            </a>
+
+            <nav class="navigation">
+                <a href="#home" class="nav-link active">⌂ <span>Home</span></a>
+                <a href="#commands" class="nav-link">♩ <span>Commands</span></a>
+                <a href="#history" class="nav-link">◷ <span>History</span></a>
+                <a href="#settings" class="nav-link">⚙ <span>Settings</span></a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="mini-orb">✦</div>
+                <h3>Your smart assistant</h3>
+                <p>Speak. Type. Get things done.</p>
+                <div class="profile">
+                    <div class="avatar">R</div>
+                    <div>
+                        <strong>REX User</strong>
+                        <span>Personal assistant</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="home">
+
+            <header class="topbar">
+                <div>
+                    <span class="eyebrow">YOUR PERSONAL AI</span>
+                    <h1>Welcome to REX</h1>
+                </div>
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    <span id="connection-status">Checking connection...</span>
+                </div>
+            </header>
+
+            <section class="hero">
+                <div class="hero-content">
+                    <span class="eyebrow">YOUR DAY, SIMPLIFIED</span>
+                    <h2>Hello! How can I help you?</h2>
+                    <p>I'm REX, your AI assistant. Give me a command and let's get things done.</p>
+
+                    <div class="quick-actions">
+                        <button class="quick-action" data-command="Calculate 12 times 8">⊞ Calculate</button>
+                        <button class="quick-action" data-command="What time is it?">◷ Get time</button>
+                        <button class="quick-action" data-command="What is today's date?">▦ Get date</button>
+                    </div>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="robot">✦</div>
+                    <div class="sound-wave">
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="workspace">
+
+                <section class="assistant-panel" id="commands">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="eyebrow">INTERACTIVE ASSISTANT</span>
+                            <h2>Talk to REX</h2>
+                        </div>
+                        <span class="pill">● Ready</span>
+                    </div>
+
+                    <div class="mode-tabs">
+                        <button class="mode-tab active" id="voice-tab" type="button">
+                            ♩ Voice command
+                        </button>
+                        <button class="mode-tab" id="text-tab" type="button">
+                            ▤ Text command
+                        </button>
+                    </div>
+
+                    <div class="voice-area">
+                        <button id="mic-button" class="mic-button" type="button"
+                                aria-label="Start voice input">
+                            <span class="mic-icon">🎙</span>
+                        </button>
+                        <h3 id="voice-title">Ready when you are</h3>
+                        <p id="voice-description">Press the microphone to try voice input, or type below.</p>
+                    </div>
+
+                    <div class="response-box" id="response-box" role="status" aria-live="polite">
+                        <span class="response-label">REX RESPONSE</span>
+                        <p id="response-text">Your responses will appear here.</p>
+                    </div>
+
+                    <form id="command-form" class="command-form">
+                        <label class="sr-only" for="command-input">Enter a command</label>
+                        <span class="input-icon">⌨</span>
+                        <input id="command-input" name="text" type="text"
+                               placeholder="Type a command for REX..."
+                               maxlength="2000" autocomplete="off" required>
+                        <button id="send-button" type="submit" aria-label="Send command">
+                            ➤
+                        </button>
+                    </form>
+
+                    <p class="hint">Try: “What time is it?” or “Calculate 25 times 4”</p>
+                </section>
+
+                <aside class="right-column">
+
+                    <section class="info-card">
+                        <div class="card-icon blue-icon">✦</div>
+                        <div>
+                            <h3>Assistant status</h3>
+                            <strong id="assistant-status">Connecting...</strong>
+                            <p>Your personal assistant</p>
+                        </div>
+                    </section>
+
+                    <section class="info-card stats-card">
+                        <h3>Quick overview</h3>
+                        <div class="stats-grid">
+                            <div class="stat">
+                                <span class="stat-symbol">⌘</span>
+                                <div>
+                                    <p>Commands this session</p>
+                                    <strong id="command-count">0</strong>
+                                </div>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-symbol">✓</span>
+                                <div>
+                                    <p>Successful commands</p>
+                                    <strong id="success-count">0</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="info-card activity-card" id="history">
+                        <div class="activity-heading">
+                            <h3>Recent activity</h3>
+                            <button id="clear-history" class="text-button" type="button">
+                                Clear
+                            </button>
+                        </div>
+                        <div id="activity-list" class="activity-list">
+                            <p class="empty-state">Your command history will appear here.</p>
+                        </div>
+                    </section>
+
+                </aside>
+            </div>
+
+            <footer class="footer">
+                <span>REX AI Assistant</span>
+                <span>Built to make everyday tasks easier.</span>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', path='/js/assistant.js') }}" defer></script>
+</body>
+</html>
